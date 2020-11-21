@@ -19,3 +19,8 @@ jobs:
       # We install the IIO Oscilloscope package, which builds the others
       # through dependency resolution.
       run: brew install --verbose --build-from-source iio-oscilloscope
+    - name: Test
+      run: |
+        for formula in *.rb; do
+          brew test "${formula%.rb}"
+        done
