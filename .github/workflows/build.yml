@@ -13,7 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Copy formulae
+      run: cp *.rb $(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/
     - name: Install
       # We install the IIO Oscilloscope package, which builds the others
       # through dependency resolution.
-      run: brew install --verbose --build-from-source ./iio-oscilloscope.rb
+      run: brew install --verbose --build-from-source iio-oscilloscope
