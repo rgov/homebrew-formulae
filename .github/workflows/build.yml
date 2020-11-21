@@ -1,0 +1,16 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  install:
+    runs-on: [ macos-11.0, macos-10.15 ]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Audit
+      run: for formula in *.rb; do brew audit --online $formula; done
+    - name: Install
+      # We install the IIO Oscilloscope package, which builds the others
+      # through dependency resolution.
+      run: brew install --verbose --build-from-source ./iio-oscilloscope.rb
